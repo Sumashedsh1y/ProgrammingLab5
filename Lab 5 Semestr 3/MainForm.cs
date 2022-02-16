@@ -1,4 +1,4 @@
-﻿using Lab_5_Semestr_3.Properties;
+using Lab_5_Semestr_3.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -97,15 +97,25 @@ namespace Lab_5_Semestr_3
 
         private void NextMatch(object sender, EventArgs e)
         {
-            data.Next();
-            ShowMatch();
+            if (textBox1.Text == "")
+            {
+                richTextBox2.Text = "Enter the text";
+            }
+            else
+            {
+                data.Next();
+                ShowMatch();
+            }
+
         }
 
         private void OfOrClick(object sender, EventArgs e)
         {
-            int ofc, orc;
+
+                int ofc, orc;
             data.GetOfOrStatistics(out ofc, out orc);
             richTextBox2.Text = $" of: {ofc}, or: {orc}";
+
         }
         public ISet<string> FindSentencesFirstWords()
         {
@@ -134,7 +144,8 @@ namespace Lab_5_Semestr_3
             string word = data.FindMaxSentence().Item1;
             float sred = data.FindMaxSentence().Item2;
             text = word.Split(' ');
-            richTextBox2.Text = "Max length sentense:"+"\n"+word+"\n"+text.Length.ToString()+" words" + "\n" + "Srednee kolichestvo: " + sred.ToString();
+            richTextBox2.Text = "Max length sentense:" + "\n" + word + "\n" + text.Length.ToString() + " words" + "\n" + "Srednee kolichestvo: " + sred.ToString();
+
         }
     }
 }
