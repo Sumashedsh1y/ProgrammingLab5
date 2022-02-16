@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ namespace Lab_5_Semestr_3
             using (StreamReader sr = new StreamReader(fileName))
             {
                 Text = sr.ReadToEnd().Replace("\r", "");
-                this.FileName = fileName;
+                FileName = fileName;
             }
         }
         public void Find(string re)  
@@ -52,7 +52,7 @@ namespace Lab_5_Semestr_3
         {
             SortedDictionary<string, int> counts = new SortedDictionary<string, int>();
             Regex r = new Regex(@"(?<=\s)[A-Za-zА-Яа-я]");
-            foreach (Match m in r.Matches(this.Text))
+            foreach (Match m in r.Matches(Text))
             {
                 string b = m.Value.ToUpper();
                 if (counts.ContainsKey(b))
@@ -72,15 +72,15 @@ namespace Lab_5_Semestr_3
             string max = "";
             int sumcounts = 0;
             int sentenses = 0;
-            foreach (Match m in Regex.Matches(Text, @"(([A-Z]|[А-Я])([a-z]|[а-я])+)\b+.*[.!?]"))
+            string[] txt = Regex.Split(Text, @"(?<=[\.!\?])\s+");
+            foreach (string word in txt)
             {
-                string word = m.ToString();
-                int count = Regex.Split(word, @" \w").Count();
+                int count = word.Split(' ').Length;
                 sumcounts += count;
                 sentenses += 1;
                 if (count > startcount)
                 {
-                    max = m.Value;
+                    max = word;
                     startcount = count;
                 }
             }
